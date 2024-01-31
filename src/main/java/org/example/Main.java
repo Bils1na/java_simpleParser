@@ -4,7 +4,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -18,7 +17,8 @@ public class Main {
             String dateString = day.select("th[id=dt]").text();
             String date = Parser.getDateFromString(dateString);
             System.out.println(date + "    Явление    Температура    Давл    Влажность   Ветер");
-            Parser.printFourValues(dayValue, index);
+            int count = Parser.printFourValues(dayValue, index);
+            index += count;
         }
 
     }

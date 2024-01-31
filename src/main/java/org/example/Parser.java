@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    // \d{2}\.\d{2}
+    // \d{2}\.\d{2} https://www.youtube.com/watch?v=IxokmNxzqPs
     private static Pattern pattern = Pattern.compile("\\d{2}\\.\\d{2}");
 
     public static Document getPage() throws IOException {
@@ -28,12 +28,33 @@ public class Parser {
         throw new Exception("Can't extract date from string!");
     }
 
-    protected static void printFourValues(Elements values, int index) {
-        for (int i = 0; i < 4; i++) {
-            Element valueLine = values.get(index);
-            for (Element td : valueLine.select("td")) {
-                System.out.println(td.text() + "   ");
+    protected static int printFourValues(Elements values, int index) {
+        int iterationCount = 4;
+        if (index == 0) {
+            Element valueLine = values.get(0);
+            boolean isMorning = valueLine.text().contains("Утро");
+
+            if (isMorning) {
+                iterationCount = 3;
             }
+
+            for (int i = 0; i < iterationCount; i++) {
+                Element valueLn = values.get(index + i);
+                for (Element td : valueLn.select("td")) {
+                    System.out.print(td.text() + "   ");
+                }
+                System.out.println();
+            }
+            return iterationCount;
+        } else {
+            for (int i = 0; i < 4; i++) {
+                Element valueLine = values.get(index + i);
+                for (Element td : valueLine.select("td")) {
+                    System.out.print(td.text() + "   ");
+                }
+                System.out.println();
+            }
+            return iterationCount;
         }
     }
 
