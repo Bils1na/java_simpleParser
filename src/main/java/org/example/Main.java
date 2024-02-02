@@ -16,9 +16,10 @@ public class Main {
         for (Element day : days) {
             String dateString = day.select("th[id=dt]").text();
             String date = Parser.getDateFromString(dateString);
-            System.out.println(date + "    Явление    Температура    Давл    Влажность   Ветер");
+            System.out.println(date + "  Явление                    Температура    Давл    Влажность   Ветер");
             int count = Parser.printFourValues(dayValue, index);
             index += count;
+            System.out.println();
         }
 
     }
